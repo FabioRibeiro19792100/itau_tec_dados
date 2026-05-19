@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+  <title>Data Driven Decision Making</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="hdr">
+      <div>
+        <div class="hdr-title">Data Driven Decision Making</div>
+        <div class="hdr-sub">Itaú Unibanco · Estagiários · 4h</div>
+      </div>
+      <div class="hdr-count" id="cnt">1 / 28</div>
+    </div>
+
+    <div class="prog"><div class="prog-fill" id="pf"></div></div>
+
+    <div class="deck" id="deck">
+      <div class="track" id="track">
+        <div class="card c-cover">
+          <div class="body">
+            <div class="eyebrow">Programa do curso</div>
+            <h1>Data Driven Decision Making</h1>
+            <div class="meta">Itaú Unibanco · Estagiários · 4 horas<br>5 blocos · formato online</div>
+            <div class="legend">
+              <div class="legend-i"><div class="legend-dot" style="background:#E8620A"></div>Conteúdo</div>
+              <div class="legend-i"><div class="legend-dot" style="background:#3A7D44"></div>Prática</div>
+              <div class="legend-i"><div class="legend-dot" style="background:#7B4FA6"></div>Reflexão</div>
+              <div class="legend-i"><div class="legend-dot" style="background:#1A6FA8"></div>Debriefe</div>
+            </div>
+            <div class="cta">Deslize para navegar</div>
+          </div>
+        </div>
+
+        <div class="card c-obj">
+          <div class="body">
+            <h3>O que os participantes levam</h3>
+            <p class="obj-sub">Ao final do curso, cada participante sai com:</p>
+            <div class="obj-row"><div class="obj-n">1</div><div class="obj-t">Uma leitura prática do que significa tomar decisões orientadas por dados no ambiente do Itaú</div></div>
+            <div class="obj-row"><div class="obj-n">2</div><div class="obj-t">Critérios para identificar e selecionar fontes de dados relevantes para hipóteses de negócio</div></div>
+            <div class="obj-row"><div class="obj-n">3</div><div class="obj-t">Clareza sobre os vieses que afetam a leitura de dados e como calibrá-los</div></div>
+            <div class="obj-row"><div class="obj-n">4</div><div class="obj-t">Contexto sobre a infraestrutura de dados do Itaú, bancos de dados, cloud e tecnologias em uso</div></div>
+            <div class="obj-row"><div class="obj-n">5</div><div class="obj-t">Capacidade de mapear as variáveis que mais pesam numa decisão estratégica e avaliar o que muda quando elas se movem</div></div>
+          </div>
+        </div>
+
+        <div class="card c-section">
+          <div class="body">
+            <div class="snum">01</div>
+            <h2>Por que dados?</h2>
+            <div class="dur">30 minutos</div>
+          </div>
+        </div>
+
+        <div class="card c-content">
+          <div class="body">
+            <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+            <div class="time"><span>00:00</span><span>10 min</span></div>
+            <h3>A decisão antes do dado</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext">Toda decisão parte de uma hipótese formulada por alguém, em um contexto</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">O dado entra como ferramenta de quem decide</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">O curso parte de quem decide e do problema a resolver</div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Decisão</span>
+            <span class="tag">Trade-off</span>
+            <span class="tag">Ética da escolha</span>
+            <span class="tag">Hipótese</span>
+          </div>
+        </div>
+
+        <div class="card c-content">
+          <div class="body">
+            <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+            <div class="time"><span>00:10</span><span>20 min</span></div>
+            <h3>O que significa ser data driven e onde vivem esses dados no Itaú</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext">Ser data driven é ter um processo: capturar, tratar, gerar hipóteses e aplicar</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">O que é um banco de dados e como a informação é organizada em escala</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">A infraestrutura cloud do Itaú e o papel da AWS na operação de dados do banco</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Principais tecnologias de dados em uso na instituição</div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Banco de dados</span>
+            <span class="tag">AWS</span>
+            <span class="tag">Cloud</span>
+            <span class="tag">Infraestrutura</span>
+            <span class="tag">Escala</span>
+          </div>
+        </div>
+
+        <div class="card c-section">
+          <div class="body">
+            <div class="snum">02</div>
+            <h2>Explorar</h2>
+            <div class="dur">50 minutos</div>
+          </div>
+        </div>
+
+        <div class="card c-pratica">
+          <div class="body">
+            <div class="badge b-pratica"><div class="dot"></div>Prática</div>
+            <div class="time"><span>00:30</span><span>10 min</span></div>
+            <h3>Aquecimento: o que você trouxe de fora da tela</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext">Tarefa pré-aula: cada participante chega com uma observação das últimas horas, algo que viu, ouviu ou notou no mundo ao redor</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext"><strong>Pergunta central: com base nessa observação, qual hipótese econômica ou de negócio você sustentaria?</strong></div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Nos primeiros minutos da aula, cada pessoa compartilha o que trouxe</div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Observação como dado</span>
+            <span class="tag">Previsão econômica</span>
+            <span class="tag">Repertório</span>
+          </div>
+        </div>
+
+        <div class="card c-debrief">
+          <div class="body">
+            <div class="badge b-debrief"><div class="dot"></div>Debriefe</div>
+            <div class="time"><span>00:40</span><span>15 min</span></div>
+            <h3>O que os participantes viram e o que isso revela</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext">Compartilhamento das observações entre os participantes</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Observação cotidiana como fonte de dado: o que cada um capturou e por quê</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">O ponto de vista de quem olha condiciona o que se vê</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Tendência ao viés pessimista e à naturalização de verdades universais</div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Viés pessimista</span>
+            <span class="tag">Ponto de vista</span>
+            <span class="tag">Naturalização</span>
+          </div>
+        </div>
+
+        <div class="card c-content">
+          <div class="body">
+            <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+            <div class="time"><span>00:55</span><span>25 min</span></div>
+            <h3>Humildade intelectual e o ato de explorar</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext">Viés estatístico: como a seleção de dados condiciona conclusões</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Viés de confirmação: como hipóteses prévias moldam a leitura</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Good Judgment Open como modelo de como visões individuais se tornam decisões coletivas mais precisas</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext"><strong>Pergunta para a turma: como o banco opera esse princípio em escala?</strong></div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Forecasting coletivo</span>
+            <span class="tag">Viés estatístico</span>
+            <span class="tag">Viés de confirmação</span>
+          </div>
+        </div>
+
+        <div class="card c-section">
+          <div class="body">
+            <div class="snum">03</div>
+            <h2>O processo DDDM</h2>
+            <div class="dur">70 minutos</div>
+          </div>
+        </div>
+
+        <div class="card c-content">
+          <div class="body">
+            <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+            <div class="time"><span>01:20</span><span>10 min</span></div>
+            <h3>As quatro macro-etapas</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext">Framework central: captura, tratamento, geração de insights e aplicação</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Cada etapa tem lógica própria e alimenta a etapa seguinte</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">O ciclo é iterativo: a aplicação gera novos dados para captura</div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Framework DDDM</span>
+            <span class="tag">Ciclo iterativo</span>
+            <span class="tag">Processo</span>
+          </div>
+        </div>
+
+        <div class="card c-content">
+          <div class="body">
+            <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+            <div class="time"><span>01:30</span><span>10 min</span></div>
+            <h3>Etapa 1: Captura</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext">Dado interno e externo, primário e secundário: critérios de escolha para cada hipótese</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Todo dado carrega informações implícitas além do número visível</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Postura científica: testar hipóteses e calibrar a leitura a partir dos resultados</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Captura como gestão de risco: mensurar é a base para gerenciar</div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Captura</span>
+            <span class="tag">Dado primário / secundário</span>
+            <span class="tag">Dado interno / externo</span>
+            <span class="tag">Hipótese</span>
+          </div>
+        </div>
+
+        <div class="card c-pratica">
+          <div class="body">
+            <div class="badge b-pratica"><div class="dot"></div>Prática</div>
+            <div class="time"><span>01:40</span><span>20 min</span></div>
+            <h3>Atividade de captura: quais dados você precisaria?</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext"><strong>Individual: com base em quê você tomaria uma decisão sobre oportunidades de varejo PF no Itaú em 2026?</strong></div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Debate coletivo: cada participante compartilha sua base de raciocínio</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext"><strong>Trios, 8 minutos: que dados seriam necessários para testar essas hipóteses e onde buscá-los?</strong></div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Varejo PF</span>
+            <span class="tag">Fontes de dados</span>
+            <span class="tag">Teste de hipótese</span>
+          </div>
+        </div>
+
+        <div class="card c-debrief">
+          <div class="body">
+            <div class="badge b-debrief"><div class="dot"></div>Debriefe</div>
+            <div class="time"><span>02:00</span><span>10 min</span></div>
+            <h3>O que a atividade revelou</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext">Bases diferentes geram hipóteses diferentes, e portanto decisões diferentes</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Composição de fontes internas e externas para uma mesma hipótese</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Dado e especulação têm pesos distintos: toda informação verbal pede verificação</div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Dado x especulação</span>
+            <span class="tag">Mix de fontes</span>
+            <span class="tag">Verificação</span>
+          </div>
+        </div>
+
+        <div class="card c-content">
+          <div class="body">
+            <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+            <div class="time"><span>02:10</span><span>10 min</span></div>
+            <h3>Etapa 2: Tratamento</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext">Dados faltantes: efeitos sobre a análise e formas de identificá-los</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Outliers: como distinguir erro de coleta de sinal relevante</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Consistência: padrões contraditórios na mesma base comprometem decisões</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Validação cruzada: confrontar dados com outras fontes disponíveis</div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Tratamento</span>
+            <span class="tag">Outlier</span>
+            <span class="tag">Validação cruzada</span>
+            <span class="tag">Consistência</span>
+          </div>
+        </div>
+
+        <div class="card c-reflexao">
+          <div class="body">
+            <div class="badge b-reflexao"><div class="dot"></div>Reflexão</div>
+            <div class="time"><span>02:20</span><span>5 min</span></div>
+            <h3>Momento de reflexão individual</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext"><strong>Escrita individual a partir de uma pergunta sobre a própria prática de captura e tratamento de dados</strong></div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">O participante guarda o registro como referência pessoal</div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Metacognição</span>
+            <span class="tag">Registro pessoal</span>
+            <span class="tag">Prática reflexiva</span>
+          </div>
+        </div>
+
+        <div class="card c-section">
+          <div class="body">
+            <div class="snum">04</div>
+            <h2>Decidir com dados</h2>
+            <div class="dur">50 minutos</div>
+          </div>
+        </div>
+
+        <div class="card c-content">
+          <div class="body">
+            <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+            <div class="time"><span>02:25</span><span>10 min</span></div>
+            <h3>Etapa 3: Geração de insights</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext">Hipóteses se qualificam ao entrar em contato com outros universos de referência</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Discordâncias construtivas produzem decisões com mais sustentação</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Mais contexto amplia a leitura: a visão de uma área isolada é sempre parcial</div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Geração de insights</span>
+            <span class="tag">Discordância construtiva</span>
+            <span class="tag">Multidisciplinaridade</span>
+          </div>
+        </div>
+
+        <div class="card c-content">
+          <div class="body">
+            <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+            <div class="time"><span>02:35</span><span>10 min</span></div>
+            <h3>Etapa 4: Aplicação</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext">Ciclos iterativos de aplicação constroem melhoria contínua</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">O dado opera dentro de um sistema de valores: decisões carregam e reforçam cultura</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">O horizonte de uma decisão supera o que os dados históricos registram</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Ganhos incrementais dependem de aplicações consistentes ao longo do tempo</div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Aplicação</span>
+            <span class="tag">Cultura organizacional</span>
+            <span class="tag">Ganho incremental</span>
+            <span class="tag">Melhoria contínua</span>
+          </div>
+        </div>
+
+        <div class="card c-content">
+          <div class="body">
+            <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+            <div class="time"><span>02:45</span><span>15 min</span></div>
+            <h3>O ato de decidir: o limite do dado histórico</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext">Dados registram o que existiu: decisões antecipam o que ainda vai existir</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext"><strong>Cenário provocativo: estamos em 2035 e o Itaú perdeu posição entre os maiores bancos do país. O que aconteceu?</strong></div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">A melhor decisão começa por entender qual é o melhor problema a resolver</div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Cisne Negro</span>
+            <span class="tag">Outlier extremo</span>
+            <span class="tag">Antecipação</span>
+          </div>
+        </div>
+
+        <div class="card c-content">
+          <div class="body">
+            <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+            <div class="time"><span>03:00</span><span>10 min</span></div>
+            <h3>Elementos de decisão: drivers financeiros</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext">Expansão da carteira de crédito como vetor principal de crescimento</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Receita de serviços e seguros como diversificação de margem</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Margem financeira por cliente como indicador de profundidade de relacionamento</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">NPS como dado qualitativo com impacto financeiro mensurável</div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Drivers financeiros</span>
+            <span class="tag">NPS</span>
+            <span class="tag">Margem financeira</span>
+            <span class="tag">Carteira de crédito</span>
+          </div>
+        </div>
+
+        <div class="card c-content">
+          <div class="body">
+            <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+            <div class="time"><span>03:10</span><span>10 min</span></div>
+            <h3>Elementos de decisão: drivers de prioridades e risco</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext">PME, base da pirâmide, beyond banking e marketplaces como frentes de expansão</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Trade-off entre rigidez e flexibilidade na gestão de risco</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Como medir risco no desenvolvimento de novos produtos: os critérios do banco</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Para cada driver: apresentação do tema, leitura do contexto atual e <strong>contribuições da turma</strong></div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Drivers de risco</span>
+            <span class="tag">PME</span>
+            <span class="tag">Beyond banking</span>
+            <span class="tag">DREX</span>
+            <span class="tag">BaaS</span>
+          </div>
+        </div>
+
+        <div class="card c-section">
+          <div class="body">
+            <div class="snum">05</div>
+            <h2>Atividade final</h2>
+            <div class="dur">50 minutos</div>
+          </div>
+        </div>
+
+        <div class="card c-content">
+          <div class="body">
+            <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+            <div class="time"><span>03:20</span><span>5 min</span></div>
+            <h3>Análise de sensibilidade: o que é e como funciona</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext">Uma decisão raramente depende de uma variável só</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Análise de sensibilidade mapeia quais variáveis mais movem o resultado</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Exemplo prático com o modelo financeiro da Mastertech: variação de preço, custo de aquisição e horas de instrução</div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Análise de sensibilidade</span>
+            <span class="tag">Variável crítica</span>
+            <span class="tag">Modelo financeiro</span>
+          </div>
+        </div>
+
+        <div class="card c-pratica">
+          <div class="body">
+            <div class="badge b-pratica"><div class="dot"></div>Prática</div>
+            <div class="time"><span>03:25</span><span>30 min</span></div>
+            <h3>Atividade: análise de sensibilidade aplicada ao Itaú</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext">Os grupos recebem um cenário do contexto do banco</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Cada grupo identifica os drivers que mais impactam a decisão em questão</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Para cada driver: o grupo formula o que muda na decisão se a variável se mover</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">A apresentação inclui a base de dados que sustentaria cada hipótese</div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Cenário</span>
+            <span class="tag">Drivers estratégicos</span>
+            <span class="tag">Hipótese</span>
+            <span class="tag">Base de dados</span>
+          </div>
+        </div>
+
+        <div class="card c-debrief">
+          <div class="body">
+            <div class="badge b-debrief"><div class="dot"></div>Debriefe</div>
+            <div class="time"><span>03:55</span><span>10 min</span></div>
+            <h3>Fechamento da atividade</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext">Cada grupo apresenta os drivers identificados e as hipóteses formuladas</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Comparação entre os cenários: pontos de convergência e de divergência entre os grupos</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">A divergência como dado em si: o que ela revela sobre as premissas de cada grupo</div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Convergência / divergência</span>
+            <span class="tag">Premissa</span>
+            <span class="tag">Síntese coletiva</span>
+          </div>
+        </div>
+
+        <div class="card c-content">
+          <div class="body">
+            <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+            <div class="time"><span>04:05</span><span>10 min</span></div>
+            <h3>Encerramento</h3>
+            <div class="items">
+              <div class="item"><div class="dot-item"></div><div class="itext">Síntese do framework: captura, tratamento, geração de insights e aplicação</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">O que levar para a prática amanhã</div></div>
+              <div class="item"><div class="dot-item"></div><div class="itext">Registro de presença</div></div>
+            </div>
+          </div>
+          <div class="strip">
+            <span class="tag hi">Framework DDDM</span>
+            <span class="tag">Síntese</span>
+            <span class="tag">Próximos passos</span>
+          </div>
+        </div>
+
+        <div class="card c-end">
+          <div class="body">
+            <div class="end-icon">◎</div>
+            <h2>Programa completo</h2>
+            <p>4 horas · 5 blocos · formato online e colaborativo · ancorado no contexto do Itaú</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="nbtn off" id="bp" type="button" aria-label="Slide anterior">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="dots" id="dots"></div>
+      <button class="nbtn" id="bn" type="button" aria-label="Próximo slide">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

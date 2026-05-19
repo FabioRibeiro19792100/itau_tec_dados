@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --orange: #E8620A; --orange-light: #FDE9D9;
+  --dark: #111010; --mid: #6B6560;
+  --light: #F4F1ED; --white: #FDFCFB; --border: #E2DDD8;
+  --green: #3A7D44; --green-light: #DCF0DF; --green-bg: #F0F7F0;
+  --purple: #7B4FA6; --purple-light: #EAE0F5; --purple-bg: #F5F0F8;
+  --blue: #1A6FA8; --blue-light: #D8EAFB; --blue-bg: #F0F5FA;
+}
+html { height: 100%; background: #1e1e1e; font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+body { height: 100%; display: flex; align-items: center; justify-content: center; background: #1e1e1e; overflow: hidden; }
+
+/* WRAPPER */
+.wrap { position: relative; width: 100%; max-width: 960px; height: 640px; background: var(--light); overflow: hidden; border-radius: 16px; box-shadow: 0 32px 80px rgba(0,0,0,0.6); }
+@media (max-width: 860px) { .wrap { max-width: 100%; height: 100vh; border-radius: 0; } body { background: var(--light); } }
+
+/* HEADER */
+.hdr { position: absolute; top: 0; left: 0; right: 0; z-index: 10; height: 54px; padding: 0 20px; background: var(--light); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.hdr-title { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 600; color: var(--dark); }
+.hdr-sub { font-size: 11px; color: var(--mid); margin-top: 1px; }
+.hdr-count { font-size: 11px; color: var(--mid); }
+
+/* PROGRESS */
+.prog { position: absolute; top: 54px; left: 0; right: 0; height: 2px; background: var(--border); z-index: 10; }
+.prog-fill { height: 100%; background: var(--orange); transition: width 0.4s cubic-bezier(.4,0,.2,1); width: 3.6%; }
+
+/* DECK */
+.deck { position: absolute; top: 56px; bottom: 54px; left: 0; right: 0; overflow: hidden; }
+.track { display: flex; height: 100%; transition: transform 0.38s cubic-bezier(.4,0,.2,1); will-change: transform; }
+
+/* CARD BASE */
+.card { min-width: 100%; height: 100%; display: flex; flex-direction: column; }
+.body { flex: 1; overflow-y: auto; padding: 24px 24px 16px; position: relative; -webkit-overflow-scrolling: touch; }
+.strip { flex-shrink: 0; padding: 12px 18px 14px; background: var(--dark); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.tag { display: inline-flex; padding: 4px 11px; border: 1px solid rgba(244,241,237,0.2); border-radius: 20px; font-size: 10px; font-weight: 500; letter-spacing: 0.05em; color: rgba(244,241,237,0.75); white-space: nowrap; }
+.tag.hi { background: var(--orange); border-color: var(--orange); color: var(--white); }
+
+/* CARD TYPES */
+.c-cover .body { background: var(--dark); display: flex; flex-direction: column; justify-content: flex-end; }
+.c-cover .strip { background: rgba(255,255,255,0.04); border-top: 1px solid rgba(255,255,255,0.07); }
+.c-section .body { background: var(--orange); display: flex; flex-direction: column; justify-content: center; }
+.c-obj .body { background: var(--light); }
+.c-content .body { background: var(--white); }
+.c-pratica .body { background: var(--green-bg); }
+.c-reflexao .body { background: var(--purple-bg); }
+.c-debrief .body { background: var(--blue-bg); }
+.c-end .body { background: var(--dark); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+
+/* TYPE BADGE */
+.badge { display: inline-flex; align-items: center; gap: 5px; border-radius: 20px; padding: 4px 10px; font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
+.badge .dot { width: 6px; height: 6px; border-radius: 50%; }
+.b-content { background: var(--orange-light); color: var(--orange); }
+.b-content .dot { background: var(--orange); }
+.b-pratica { background: var(--green-light); color: var(--green); }
+.b-pratica .dot { background: var(--green); }
+.b-reflexao { background: var(--purple-light); color: var(--purple); }
+.b-reflexao .dot { background: var(--purple); }
+.b-debrief { background: var(--blue-light); color: var(--blue); }
+.b-debrief .dot { background: var(--blue); }
+
+/* TIME CHIP */
+.time { position: absolute; top: 16px; right: 20px; display: inline-flex; align-items: center; gap: 5px; background: rgba(0,0,0,0.07); border-radius: 20px; padding: 3px 10px; }
+.time span:first-child { font-size: 11px; font-weight: 500; color: var(--dark); }
+.time span:last-child { font-size: 10px; color: var(--mid); }
+
+/* TYPOGRAPHY */
+.c-cover h1 { font-family: 'Syne', sans-serif; font-size: 30px; font-weight: 700; line-height: 1.1; color: var(--white); margin-bottom: 14px; }
+.c-cover .eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; font-family: 'Syne', sans-serif; }
+.c-cover .meta { font-size: 12px; color: rgba(253,252,251,0.4); line-height: 1.9; }
+.c-cover .cta { display: inline-block; margin-top: 20px; padding: 6px 14px; border: 1px solid rgba(232,98,10,0.5); border-radius: 20px; font-size: 11px; color: var(--orange); }
+.legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.legend-i { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: rgba(253,252,251,0.45); }
+.legend-dot { width: 7px; height: 7px; border-radius: 50%; }
+.c-section .snum { font-family: 'Syne', sans-serif; font-size: 56px; font-weight: 700; color: rgba(255,255,255,0.18); line-height: 1; margin-bottom: 6px; }
+.c-section h2 { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 700; color: var(--white); line-height: 1.15; margin-bottom: 6px; }
+.c-section .dur { font-size: 12px; color: rgba(255,255,255,0.6); }
+.card h3 { font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 600; color: var(--dark); line-height: 1.25; margin-bottom: 18px; padding-right: 80px; }
+.c-obj h3 { padding-right: 0; margin-bottom: 6px; }
+.obj-sub { font-size: 13px; color: var(--mid); margin-bottom: 18px; line-height: 1.5; }
+.obj-row { display: flex; gap: 12px; align-items: flex-start; padding: 11px 0; border-bottom: 1px solid var(--border); }
+.obj-row:last-child { border-bottom: none; }
+.obj-n { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--orange); min-width: 22px; line-height: 1.4; }
+.obj-t { font-size: 13px; line-height: 1.6; color: var(--dark); padding-top: 2px; }
+.items { display: flex; flex-direction: column; gap: 10px; }
+.item { display: flex; gap: 10px; align-items: flex-start; }
+.dot-item { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
+.c-content .dot-item { background: var(--orange); }
+.c-pratica .dot-item { background: var(--green); }
+.c-reflexao .dot-item { background: var(--purple); }
+.c-debrief .dot-item { background: var(--blue); }
+.itext { font-size: 14px; line-height: 1.65; color: var(--dark); font-weight: 300; }
+.c-end .end-icon { font-size: 36px; margin-bottom: 18px; color: var(--orange); }
+.c-end h2 { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+.c-end p { font-size: 13px; color: rgba(253,252,251,0.45); line-height: 1.7; max-width: 260px; }
+
+/* NAV */
+.nav { position: absolute; bottom: 0; left: 0; right: 0; height: 54px; background: var(--white); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 10; }
+.nbtn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border); background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.nbtn:active { transform: scale(0.92); background: var(--light); }
+.nbtn.off { opacity: 0.2; pointer-events: none; }
+.nbtn svg { width: 15px; height: 15px; stroke: var(--dark); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.dots { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; max-width: 200px; justify-content: center; }
+.ndot { width: 5px; height: 5px; border-radius: 50%; background: var(--border); transition: all 0.25s; cursor: pointer; }
+.ndot.on { width: 14px; border-radius: 3px; background: var(--orange); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div><div class="hdr-title">Data Driven Decision Making</div><div class="hdr-sub">Itaú Unibanco · Estagiários · 4h</div></div>
+  <div class="hdr-count" id="cnt">1 / 28</div>
+</div>
+<div class="prog"><div class="prog-fill" id="pf"></div></div>
+
+<div class="deck" id="deck">
+<div class="track" id="track">
+
+<!-- 1. CAPA -->
+<div class="card c-cover">
+  <div class="body">
+    <div class="eyebrow">Programa do curso</div>
+    <h1>Data Driven Decision Making</h1>
+    <div class="meta">Itaú Unibanco · Estagiários · 4 horas<br>5 blocos · formato online</div>
+    <div class="legend">
+      <div class="legend-i"><div class="legend-dot" style="background:#E8620A"></div>Conteúdo</div>
+      <div class="legend-i"><div class="legend-dot" style="background:#3A7D44"></div>Prática</div>
+      <div class="legend-i"><div class="legend-dot" style="background:#7B4FA6"></div>Reflexão</div>
+      <div class="legend-i"><div class="legend-dot" style="background:#1A6FA8"></div>Debriefe</div>
+    </div>
+    <div class="cta">Deslize para navegar</div>
+  </div>
+</div>
+
+<!-- 2. OBJETIVOS -->
+<div class="card c-obj">
+  <div class="body">
+    <h3>O que os participantes levam</h3>
+    <p class="obj-sub">Ao final do curso, cada participante sai com:</p>
+    <div class="obj-row"><div class="obj-n">1</div><div class="obj-t">Uma leitura prática do que significa tomar decisões orientadas por dados no ambiente do Itaú</div></div>
+    <div class="obj-row"><div class="obj-n">2</div><div class="obj-t">Critérios para identificar e selecionar fontes de dados relevantes para hipóteses de negócio</div></div>
+    <div class="obj-row"><div class="obj-n">3</div><div class="obj-t">Clareza sobre os vieses que afetam a leitura de dados e como calibrá-los</div></div>
+    <div class="obj-row"><div class="obj-n">4</div><div class="obj-t">Contexto sobre a infraestrutura de dados do Itaú, bancos de dados, cloud e tecnologias em uso</div></div>
+    <div class="obj-row"><div class="obj-n">5</div><div class="obj-t">Capacidade de mapear as variáveis que mais pesam numa decisão estratégica e avaliar o que muda quando elas se movem</div></div>
+  </div>
+</div>
+
+<!-- 3. BLOCO 1 -->
+<div class="card c-section">
+  <div class="body">
+    <div class="snum">01</div>
+    <h2>Por que dados?</h2>
+    <div class="dur">30 minutos</div>
+  </div>
+</div>
+
+<!-- 4. -->
+<div class="card c-content">
+  <div class="body">
+    <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+    <div class="time"><span>00:00</span><span>10 min</span></div>
+    <h3>A decisão antes do dado</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext">Toda decisão parte de uma hipótese formulada por alguém, em um contexto</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">O dado entra como ferramenta de quem decide</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">O curso parte de quem decide e do problema a resolver</div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Decisão</span>
+    <span class="tag">Trade-off</span>
+    <span class="tag">Ética da escolha</span>
+    <span class="tag">Hipótese</span>
+  </div>
+</div>
+
+<!-- 5. -->
+<div class="card c-content">
+  <div class="body">
+    <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+    <div class="time"><span>00:10</span><span>20 min</span></div>
+    <h3>O que significa ser data driven e onde vivem esses dados no Itaú</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext">Ser data driven é ter um processo: capturar, tratar, gerar hipóteses e aplicar</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">O que é um banco de dados e como a informação é organizada em escala</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">A infraestrutura cloud do Itaú e o papel da AWS na operação de dados do banco</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Principais tecnologias de dados em uso na instituição</div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Banco de dados</span>
+    <span class="tag">AWS</span>
+    <span class="tag">Cloud</span>
+    <span class="tag">Infraestrutura</span>
+    <span class="tag">Escala</span>
+  </div>
+</div>
+
+<!-- 6. BLOCO 2 -->
+<div class="card c-section">
+  <div class="body">
+    <div class="snum">02</div>
+    <h2>Explorar</h2>
+    <div class="dur">50 minutos</div>
+  </div>
+</div>
+
+<!-- 7. -->
+<div class="card c-pratica">
+  <div class="body">
+    <div class="badge b-pratica"><div class="dot"></div>Prática</div>
+    <div class="time"><span>00:30</span><span>10 min</span></div>
+    <h3>Aquecimento: o que você trouxe de fora da tela</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext">Tarefa pré-aula: cada participante chega com uma observação das últimas horas, algo que viu, ouviu ou notou no mundo ao redor</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext"><strong>Pergunta central: com base nessa observação, qual hipótese econômica ou de negócio você sustentaria?</strong></div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Nos primeiros minutos da aula, cada pessoa compartilha o que trouxe</div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Observação como dado</span>
+    <span class="tag">Previsão econômica</span>
+    <span class="tag">Repertório</span>
+  </div>
+</div>
+
+<!-- 8. -->
+<div class="card c-debrief">
+  <div class="body">
+    <div class="badge b-debrief"><div class="dot"></div>Debriefe</div>
+    <div class="time"><span>00:40</span><span>15 min</span></div>
+    <h3>O que os participantes viram e o que isso revela</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext">Compartilhamento das observações entre os participantes</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Observação cotidiana como fonte de dado: o que cada um capturou e por quê</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">O ponto de vista de quem olha condiciona o que se vê</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Tendência ao viés pessimista e à naturalização de verdades universais</div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Viés pessimista</span>
+    <span class="tag">Ponto de vista</span>
+    <span class="tag">Naturalização</span>
+  </div>
+</div>
+
+<!-- 9. -->
+<div class="card c-content">
+  <div class="body">
+    <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+    <div class="time"><span>00:55</span><span>25 min</span></div>
+    <h3>Humildade intelectual e o ato de explorar</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext">Viés estatístico: como a seleção de dados condiciona conclusões</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Viés de confirmação: como hipóteses prévias moldam a leitura</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Good Judgment Open como modelo de como visões individuais se tornam decisões coletivas mais precisas</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext"><strong>Pergunta para a turma: como o banco opera esse princípio em escala?</strong></div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Forecasting coletivo</span>
+    <span class="tag">Viés estatístico</span>
+    <span class="tag">Viés de confirmação</span>
+  </div>
+</div>
+
+<!-- 10. BLOCO 3 -->
+<div class="card c-section">
+  <div class="body">
+    <div class="snum">03</div>
+    <h2>O processo DDDM</h2>
+    <div class="dur">70 minutos</div>
+  </div>
+</div>
+
+<!-- 11. -->
+<div class="card c-content">
+  <div class="body">
+    <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+    <div class="time"><span>01:20</span><span>10 min</span></div>
+    <h3>As quatro macro-etapas</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext">Framework central: captura, tratamento, geração de insights e aplicação</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Cada etapa tem lógica própria e alimenta a etapa seguinte</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">O ciclo é iterativo: a aplicação gera novos dados para captura</div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Framework DDDM</span>
+    <span class="tag">Ciclo iterativo</span>
+    <span class="tag">Processo</span>
+  </div>
+</div>
+
+<!-- 12. -->
+<div class="card c-content">
+  <div class="body">
+    <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+    <div class="time"><span>01:30</span><span>10 min</span></div>
+    <h3>Etapa 1: Captura</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext">Dado interno e externo, primário e secundário: critérios de escolha para cada hipótese</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Todo dado carrega informações implícitas além do número visível</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Postura científica: testar hipóteses e calibrar a leitura a partir dos resultados</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Captura como gestão de risco: mensurar é a base para gerenciar</div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Captura</span>
+    <span class="tag">Dado primário / secundário</span>
+    <span class="tag">Dado interno / externo</span>
+    <span class="tag">Hipótese</span>
+  </div>
+</div>
+
+<!-- 13. -->
+<div class="card c-pratica">
+  <div class="body">
+    <div class="badge b-pratica"><div class="dot"></div>Prática</div>
+    <div class="time"><span>01:40</span><span>20 min</span></div>
+    <h3>Atividade de captura: quais dados você precisaria?</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext"><strong>Individual: com base em quê você tomaria uma decisão sobre oportunidades de varejo PF no Itaú em 2026?</strong></div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Debate coletivo: cada participante compartilha sua base de raciocínio</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext"><strong>Trios, 8 minutos: que dados seriam necessários para testar essas hipóteses e onde buscá-los?</strong></div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Varejo PF</span>
+    <span class="tag">Fontes de dados</span>
+    <span class="tag">Teste de hipótese</span>
+  </div>
+</div>
+
+<!-- 14. -->
+<div class="card c-debrief">
+  <div class="body">
+    <div class="badge b-debrief"><div class="dot"></div>Debriefe</div>
+    <div class="time"><span>02:00</span><span>10 min</span></div>
+    <h3>O que a atividade revelou</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext">Bases diferentes geram hipóteses diferentes, e portanto decisões diferentes</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Composição de fontes internas e externas para uma mesma hipótese</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Dado e especulação têm pesos distintos: toda informação verbal pede verificação</div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Dado x especulação</span>
+    <span class="tag">Mix de fontes</span>
+    <span class="tag">Verificação</span>
+  </div>
+</div>
+
+<!-- 15. -->
+<div class="card c-content">
+  <div class="body">
+    <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+    <div class="time"><span>02:10</span><span>10 min</span></div>
+    <h3>Etapa 2: Tratamento</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext">Dados faltantes: efeitos sobre a análise e formas de identificá-los</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Outliers: como distinguir erro de coleta de sinal relevante</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Consistência: padrões contraditórios na mesma base comprometem decisões</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Validação cruzada: confrontar dados com outras fontes disponíveis</div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Tratamento</span>
+    <span class="tag">Outlier</span>
+    <span class="tag">Validação cruzada</span>
+    <span class="tag">Consistência</span>
+  </div>
+</div>
+
+<!-- 16. -->
+<div class="card c-reflexao">
+  <div class="body">
+    <div class="badge b-reflexao"><div class="dot"></div>Reflexão</div>
+    <div class="time"><span>02:20</span><span>5 min</span></div>
+    <h3>Momento de reflexão individual</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext"><strong>Escrita individual a partir de uma pergunta sobre a própria prática de captura e tratamento de dados</strong></div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">O participante guarda o registro como referência pessoal</div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Metacognição</span>
+    <span class="tag">Registro pessoal</span>
+    <span class="tag">Prática reflexiva</span>
+  </div>
+</div>
+
+<!-- 17. BLOCO 4 -->
+<div class="card c-section">
+  <div class="body">
+    <div class="snum">04</div>
+    <h2>Decidir com dados</h2>
+    <div class="dur">50 minutos</div>
+  </div>
+</div>
+
+<!-- 18. -->
+<div class="card c-content">
+  <div class="body">
+    <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+    <div class="time"><span>02:25</span><span>10 min</span></div>
+    <h3>Etapa 3: Geração de insights</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext">Hipóteses se qualificam ao entrar em contato com outros universos de referência</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Discordâncias construtivas produzem decisões com mais sustentação</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Mais contexto amplia a leitura: a visão de uma área isolada é sempre parcial</div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Geração de insights</span>
+    <span class="tag">Discordância construtiva</span>
+    <span class="tag">Multidisciplinaridade</span>
+  </div>
+</div>
+
+<!-- 19. -->
+<div class="card c-content">
+  <div class="body">
+    <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+    <div class="time"><span>02:35</span><span>10 min</span></div>
+    <h3>Etapa 4: Aplicação</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext">Ciclos iterativos de aplicação constroem melhoria contínua</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">O dado opera dentro de um sistema de valores: decisões carregam e reforçam cultura</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">O horizonte de uma decisão supera o que os dados históricos registram</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Ganhos incrementais dependem de aplicações consistentes ao longo do tempo</div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Aplicação</span>
+    <span class="tag">Cultura organizacional</span>
+    <span class="tag">Ganho incremental</span>
+    <span class="tag">Melhoria contínua</span>
+  </div>
+</div>
+
+<!-- 20. -->
+<div class="card c-content">
+  <div class="body">
+    <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+    <div class="time"><span>02:45</span><span>15 min</span></div>
+    <h3>O ato de decidir: o limite do dado histórico</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext">Dados registram o que existiu: decisões antecipam o que ainda vai existir</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext"><strong>Cenário provocativo: estamos em 2035 e o Itaú perdeu posição entre os maiores bancos do país. O que aconteceu?</strong></div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">A melhor decisão começa por entender qual é o melhor problema a resolver</div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Cisne Negro</span>
+    <span class="tag">Outlier extremo</span>
+    <span class="tag">Antecipação</span>
+  </div>
+</div>
+
+<!-- 21. -->
+<div class="card c-content">
+  <div class="body">
+    <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+    <div class="time"><span>03:00</span><span>10 min</span></div>
+    <h3>Elementos de decisão: drivers financeiros</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext">Expansão da carteira de crédito como vetor principal de crescimento</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Receita de serviços e seguros como diversificação de margem</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Margem financeira por cliente como indicador de profundidade de relacionamento</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">NPS como dado qualitativo com impacto financeiro mensurável</div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Drivers financeiros</span>
+    <span class="tag">NPS</span>
+    <span class="tag">Margem financeira</span>
+    <span class="tag">Carteira de crédito</span>
+  </div>
+</div>
+
+<!-- 22. -->
+<div class="card c-content">
+  <div class="body">
+    <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+    <div class="time"><span>03:10</span><span>10 min</span></div>
+    <h3>Elementos de decisão: drivers de prioridades e risco</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext">PME, base da pirâmide, beyond banking e marketplaces como frentes de expansão</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Trade-off entre rigidez e flexibilidade na gestão de risco</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Como medir risco no desenvolvimento de novos produtos: os critérios do banco</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Para cada driver: apresentação do tema, leitura do contexto atual e <strong>contribuições da turma</strong></div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Drivers de risco</span>
+    <span class="tag">PME</span>
+    <span class="tag">Beyond banking</span>
+    <span class="tag">DREX</span>
+    <span class="tag">BaaS</span>
+  </div>
+</div>
+
+<!-- 23. BLOCO 5 -->
+<div class="card c-section">
+  <div class="body">
+    <div class="snum">05</div>
+    <h2>Atividade final</h2>
+    <div class="dur">50 minutos</div>
+  </div>
+</div>
+
+<!-- 24. -->
+<div class="card c-content">
+  <div class="body">
+    <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+    <div class="time"><span>03:20</span><span>5 min</span></div>
+    <h3>Análise de sensibilidade: o que é e como funciona</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext">Uma decisão raramente depende de uma variável só</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Análise de sensibilidade mapeia quais variáveis mais movem o resultado</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Exemplo prático com o modelo financeiro da Mastertech: variação de preço, custo de aquisição e horas de instrução</div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Análise de sensibilidade</span>
+    <span class="tag">Variável crítica</span>
+    <span class="tag">Modelo financeiro</span>
+  </div>
+</div>
+
+<!-- 25. -->
+<div class="card c-pratica">
+  <div class="body">
+    <div class="badge b-pratica"><div class="dot"></div>Prática</div>
+    <div class="time"><span>03:25</span><span>30 min</span></div>
+    <h3>Atividade: análise de sensibilidade aplicada ao Itaú</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext">Os grupos recebem um cenário do contexto do banco</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Cada grupo identifica os drivers que mais impactam a decisão em questão</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Para cada driver: o grupo formula o que muda na decisão se a variável se mover</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">A apresentação inclui a base de dados que sustentaria cada hipótese</div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Cenário</span>
+    <span class="tag">Drivers estratégicos</span>
+    <span class="tag">Hipótese</span>
+    <span class="tag">Base de dados</span>
+  </div>
+</div>
+
+<!-- 26. -->
+<div class="card c-debrief">
+  <div class="body">
+    <div class="badge b-debrief"><div class="dot"></div>Debriefe</div>
+    <div class="time"><span>03:55</span><span>10 min</span></div>
+    <h3>Fechamento da atividade</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext">Cada grupo apresenta os drivers identificados e as hipóteses formuladas</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Comparação entre os cenários: pontos de convergência e de divergência entre os grupos</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">A divergência como dado em si: o que ela revela sobre as premissas de cada grupo</div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Convergência / divergência</span>
+    <span class="tag">Premissa</span>
+    <span class="tag">Síntese coletiva</span>
+  </div>
+</div>
+
+<!-- 27. -->
+<div class="card c-content">
+  <div class="body">
+    <div class="badge b-content"><div class="dot"></div>Conteúdo</div>
+    <div class="time"><span>04:05</span><span>10 min</span></div>
+    <h3>Encerramento</h3>
+    <div class="items">
+      <div class="item"><div class="dot-item"></div><div class="itext">Síntese do framework: captura, tratamento, geração de insights e aplicação</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">O que levar para a prática amanhã</div></div>
+      <div class="item"><div class="dot-item"></div><div class="itext">Registro de presença</div></div>
+    </div>
+  </div>
+  <div class="strip">
+    <span class="tag hi">Framework DDDM</span>
+    <span class="tag">Síntese</span>
+    <span class="tag">Próximos passos</span>
+  </div>
+</div>
+
+<!-- 28. FIM -->
+<div class="card c-end">
+  <div class="body">
+    <div class="end-icon">◎</div>
+    <h2>Programa completo</h2>
+    <p>4 horas · 5 blocos · formato online e colaborativo · ancorado no contexto do Itaú</p>
+  </div>
+</div>
+
+</div>
+</div>
+
+<div class="nav">
+  <button class="nbtn off" id="bp" onclick="go(-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+  <div class="dots" id="dots"></div>
+  <button class="nbtn" id="bn" onclick="go(1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+</div>
+
+</div>
+<script>
+const N=28, track=document.getElementById('track'), pf=document.getElementById('pf'),
+  cnt=document.getElementById('cnt'), bp=document.getElementById('bp'),
+  bn=document.getElementById('bn'), dotsEl=document.getElementById('dots'),
+  deck=document.getElementById('deck');
+let cur=0, sx=0, drag=0, dragging=false;
+for(let i=0;i<N;i++){const d=document.createElement('div');d.className='ndot'+(i===0?' on':'');d.onclick=()=>to(i);dotsEl.appendChild(d);}
+function upd(){
+  track.style.transition='transform 0.38s cubic-bezier(.4,0,.2,1)';
+  track.style.transform=`translateX(-${cur*100}%)`;
+  pf.style.width=((cur+1)/N*100)+'%';
+  cnt.textContent=`${cur+1} / ${N}`;
+  bp.classList.toggle('off',cur===0);
+  bn.classList.toggle('off',cur===N-1);
+  document.querySelectorAll('.ndot').forEach((d,i)=>d.classList.toggle('on',i===cur));
+}
+function go(d){const n=cur+d;if(n>=0&&n<N){cur=n;upd();}}
+function to(i){cur=i;upd();}
+deck.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;dragging=true;track.style.transition='none';},{passive:true});
+deck.addEventListener('touchmove',e=>{if(!dragging)return;drag=e.touches[0].clientX-sx;track.style.transform=`translateX(calc(-${cur*100}% + ${drag}px))`;},{passive:true});
+deck.addEventListener('touchend',()=>{dragging=false;const t=window.innerWidth*.25;if(drag<-t&&cur<N-1)cur++;else if(drag>t&&cur>0)cur--;drag=0;upd();});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);});
+upd();
+</script>
+</body>
+</html>
